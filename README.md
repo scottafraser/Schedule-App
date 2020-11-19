@@ -1,5 +1,7 @@
 # Take-Home Challenge
 
+[✨ LIVE DEMO HERE 🚀](http://scott-md-coding-challenge.surge.sh/)
+
 ## Prompt #1
 
 > We ask you to build a React application using the mocks provided, time-boxed to four hours. You can use Create React App as a starter. State should persist between VIEW and EDIT mode (but not needed for page refresh).

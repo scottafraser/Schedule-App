@@ -26,6 +26,7 @@ const Header = styled.div`
 const Row = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 0.5em;
   h6 {
     min-width: 150px;
   }
