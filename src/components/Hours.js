@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker
+} from "@material-ui/pickers";
 
 const Main = styled.div`
   margin-bottom: 1em;
   padding: 1em;
+`;
+
+const Dash = styled.div`
+  margin: 1em;
+  @media (max-width: 550px) {
+    display: none;
+  }
 `;
 
 const Header = styled.div`
@@ -30,26 +42,27 @@ const Row = styled.form`
   justify-content: start;
   align-items: center;
   flex-direction: row;
-  P {
-    min-width: 100px;
-  }
-  h6 {
-    min-width: 150px;
-  }
-  input {
-    margin: 0.7em;
-    hover: pointer;
-    border: none;
-    border-radius: 5px;
-    padding: 0.7em;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  }
+  width: 100%;
   span {
     display: flex;
     align-items: center;
   }
+  h6 {
+    padding: 0.5em;
+  }
   @media (max-width: 768px) {
-    flex-direction: column;
+    h6 {
+      width: 100%;
+    }
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    #time-picker {
+      margin: 0.2em;
+    }
+  }
+  @media (max-width: 580px) {
+    flex-wrap: wrap;
   }
 `;
 
@@ -100,32 +113,42 @@ export default function Hours({ days, resetState, toggleOpen, handleChange }) {
               <Fade in={edit} key={key}>
                 <Row>
                   <span>
-                    <Typography variant='h6'>{days[key].name}</Typography>
+                    <Typography variant='h6' style={{ minWidth: "110px" }}>
+                      {days[key].name}
+                    </Typography>
                     <Switch
                       checked={days[key].open}
                       onChange={(e) => toggleOpen(e, key)}
                       name='open'
                       color='primary'
                     />
-                    <Typography variant='h6'>
+                    <Typography variant='h6' style={{ minWidth: "100px" }}>
                       {days[key].open === true ? "OPEN" : "CLOSED"}
                     </Typography>
                   </span>
-                  <span>
-                    <input
-                      type='time'
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardTimePicker
+                      margin='normal'
+                      id='time-picker'
                       name='start'
-                      onChange={(e) => handleChange(e, key)}
-                      value={days[key].start}
-                    ></input>
-                    -
-                    <input
-                      type='time'
-                      name='finish'
-                      onChange={(e) => handleChange(e, key)}
-                      value={days[key].finish}
-                    ></input>
-                  </span>
+                      value={moment(days[key].start, "H:mm")}
+                      onChange={(e) => handleChange(e, "start", key)}
+                      KeyboardButtonProps={{
+                        "aria-label": "change time"
+                      }}
+                    />
+                    <Dash> - </Dash>
+                    <KeyboardTimePicker
+                      margin='normal'
+                      id='time-picker'
+                      name='start'
+                      value={moment(days[key].finish, "H:mm")}
+                      onChange={(e) => handleChange(e, "finish", key)}
+                      KeyboardButtonProps={{
+                        "aria-label": "change time"
+                      }}
+                    />
+                  </MuiPickersUtilsProvider>
                 </Row>
               </Fade>
             );
@@ -133,18 +156,34 @@ export default function Hours({ days, resetState, toggleOpen, handleChange }) {
         : Object.keys(days).map((key) => {
             const start = moment(days[key].start, "H:mm");
             const finish = moment(days[key].finish, "H:mm");
-            console.log(start);
             return (
               <Row key={key}>
                 <span>
-                  <Typography variant='h6'>{days[key].name}</Typography>
-                  <Typography variant='h6'>
+                  <Typography variant='h6' style={{ minWidth: "110px" }}>
+                    {days[key].name}
+                  </Typography>
+                  <Typography
+                    variant='h6'
+                    style={{ minWidth: "100px" }}
+                    alignCenter
+                  >
                     {days[key].open === true ? "OPEN" : "CLOSED"}
                   </Typography>
                 </span>
                 <span>
-                  <p>{start.format("H:mm a")}</p>
-                  <p>{finish.format("H:mm a")}</p>
+                  <Typography variant='body1' alignCenter gutterBottom>
+                    {start.format("h:mm a")}
+                  </Typography>
+                  <Typography
+                    variant='body1'
+                    alignCenter
+                    style={{ padding: ".5em" }}
+                  >
+                    -
+                  </Typography>
+                  <Typography variant='body1' alignCenter gutterBottom>
+                    {finish.format("h:mm a")}
+                  </Typography>
                 </span>
               </Row>
             );

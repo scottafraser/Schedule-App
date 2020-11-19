@@ -1,20 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import Typography from "@material-ui/core/Typography";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      maxWidth: "100%"
-    }
-  }
-}));
 
 const Main = styled.div`
   padding: 1em;
@@ -41,13 +30,13 @@ const Row = styled.div`
     min-width: 150px;
   }
   @media (max-width: 768px) {
-    flex-direction: column;
+    flex-wrap: wrap;
   }
 `;
 
 export default function Branding({ display, handleText, resetState }) {
   const [edit, setEdit] = useState(false);
-  const classes = useStyles();
+  //   const classes = useStyles();
   const [oldState, setOldState] = useState({});
 
   const clickEdit = () => {
@@ -99,7 +88,7 @@ export default function Branding({ display, handleText, resetState }) {
       </div>
       {edit ? (
         <Fade in={edit}>
-          <form className={classes.root} noValidate autoComplete='off'>
+          <form noValidate autoComplete='off'>
             <Row>
               <Typography variant='h6'>Full Name</Typography>
               <TextField

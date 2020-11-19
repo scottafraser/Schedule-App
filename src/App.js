@@ -56,10 +56,9 @@ export default class App extends Component {
     this.setState({ days: currentState });
   };
 
-  handleChange = (event, i) => {
+  handleChange = (value, name, i) => {
     const { days } = { ...this.state };
     const currentState = days;
-    const { name, value } = event.target;
     currentState[i][name] = value;
     this.setState({ days: currentState });
   };
@@ -73,7 +72,6 @@ export default class App extends Component {
   };
 
   resetState = (name, value) => {
-    console.log(value);
     this.setState({ [name]: value });
   };
 
