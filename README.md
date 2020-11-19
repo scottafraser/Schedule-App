@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# Take-Home Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Prompt #1
 
-## Available Scripts
+> We ask you to build a React application using the mocks provided, time-boxed to four hours. You can use Create React App as a starter. State should persist between VIEW and EDIT mode (but not needed for page refresh).
 
-In the project directory, you can run:
+### Set up instructions
 
-### `yarn start`
+- Pull down repository
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Run `npm install` or `yarn`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Run `npm start` or `yarn start`
 
-### `yarn test`
+- Proceed to localhost:3000/
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Notes
 
-### `yarn build`
+Had some time to flesh this out a little and tackled some extra tasks and was asked to explain why:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Mobile-Friendly View** - It's 2020! If it doesn't work on a phone, what are you doing?
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Jazz it up** - I didn't go crazy with any of this, but I brought in the Material UI library for some components and styles. I also used a handful of custome styled components 💅
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Prompt #2
 
-### `yarn eject`
+> If you were asked to make the application you built into a production deployable version, what would you do? Please include this written answer as part of your README.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+I would start with a lot of questions:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Data** - What sort of database will be using and how are we communicating with the back end?
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Scalability** - How big is this going to be? How many users are we expecting and what sort of traffic should we plan for?
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **Deployment** - Where is this going to live in relation with the rest of the project and how does the CI/CD process work? Can it handle running the compiling/build process on it's own or will it need code already built and minified?
 
-## Learn More
+If I was to go with my gut:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I would use a simple NoSQL soltution like Mongo or Firebase, bring in Axios to handle the moving of data, and ideally have it hosted somewhere that can built and deploy on merge to master after the magnificent test suite that I totally would have built had passed.

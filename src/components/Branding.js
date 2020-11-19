@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import Typography from "@material-ui/core/Typography";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +36,8 @@ const Header = styled.div`
 `;
 const Row = styled.div`
   display: flex;
-  h4 {
+  align-items: center;
+  h6 {
     min-width: 150px;
   }
   @media (max-width: 768px) {
@@ -60,7 +64,9 @@ export default function Branding({ display, handleText, resetState }) {
     <Main>
       <div>
         <Header>
-          <h2>Branding</h2>
+          <Typography variant='h4' gutterBottom>
+            Branding
+          </Typography>
           {!edit ? (
             <Button color='primary' onClick={() => clickEdit()}>
               Edit
@@ -78,65 +84,69 @@ export default function Branding({ display, handleText, resetState }) {
             </div>
           )}
         </Header>
-        <p>
+        <Typography variant='body1' gutterBottom>
           Set name, welcome page text, and other branding for your patients to
           see during an exam
-        </p>
-        <h4>Display Name</h4>
-        <p>
+        </Typography>
+        <Typography variant='h5' gutterBottom>
+          Display Name
+        </Typography>
+        <Typography variant='body1' gutterBottom>
           Set how the organization name is displayed to patients. With instances
           of limited screen space (emails, mobile view), a shortened name is
           displayed
-        </p>
+        </Typography>
       </div>
       {edit ? (
-        <form className={classes.root} noValidate autoComplete='off'>
-          <Row>
-            <h4>Full Name</h4>
-            <TextField
-              id='outlined-basic'
-              fullWidth
-              variant='outlined'
-              value={display.fullName}
-              onChange={handleText}
-              name={"fullName"}
-            />
-          </Row>
-          <Row>
-            <h4>Short Name</h4>
-            <TextField
-              id='outlined-basic'
-              fullWidth
-              variant='outlined'
-              value={display.shortName}
-              onChange={handleText}
-              name={"shortName"}
-            />
-          </Row>
-          <Row>
-            <h4>Welcome Text</h4>
-            <TextField
-              id='outlined-basic'
-              fullWidth
-              variant='outlined'
-              value={display.welcomeText}
-              onChange={handleText}
-              name={"welcomeText"}
-            />
-          </Row>
-        </form>
+        <Fade in={edit}>
+          <form className={classes.root} noValidate autoComplete='off'>
+            <Row>
+              <Typography variant='h6'>Full Name</Typography>
+              <TextField
+                id='outlined-basic'
+                fullWidth
+                variant='outlined'
+                value={display.fullName}
+                onChange={handleText}
+                name={"fullName"}
+              />
+            </Row>
+            <Row>
+              <Typography variant='h6'>Short Name</Typography>
+              <TextField
+                id='outlined-basic'
+                fullWidth
+                variant='outlined'
+                value={display.shortName}
+                onChange={handleText}
+                name={"shortName"}
+              />
+            </Row>
+            <Row>
+              <Typography variant='h6'>Welcome Text</Typography>
+              <TextField
+                id='outlined-basic'
+                fullWidth
+                variant='outlined'
+                value={display.welcomeText}
+                onChange={handleText}
+                name={"welcomeText"}
+              />
+            </Row>
+          </form>
+        </Fade>
       ) : (
         <div>
           <Row>
-            <h4>Full Name</h4>
+            <Typography variant='h6'>Full Name</Typography>
             <p>{display.fullName}</p>
           </Row>
           <Row>
-            <h4>Short Name</h4>
+            <Typography variant='h6'>Short Name</Typography>
             <p>{display.shortName}</p>
           </Row>
           <Row>
-            <h4>Welcome Text</h4>
+            <Typography variant='h6'>Welcome Text</Typography>
             <p>{display.welcomeText}</p>
           </Row>
         </div>

@@ -1,7 +1,10 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import moment from "moment";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import Typography from "@material-ui/core/Typography";
 
 const Main = styled.div`
   margin-bottom: 1em;
@@ -27,14 +30,15 @@ const Row = styled.form`
   justify-content: start;
   align-items: center;
   flex-direction: row;
-  padding: 0em 1em;
-  p {
-    font-weight: 700;
+  P {
     min-width: 100px;
   }
+  h6 {
+    min-width: 150px;
+  }
   input {
+    margin: 0.7em;
     hover: pointer;
-    margin: 0em 0.5em;
     border: none;
     border-radius: 5px;
     padding: 0.7em;
@@ -42,6 +46,7 @@ const Row = styled.form`
   }
   span {
     display: flex;
+    align-items: center;
   }
   @media (max-width: 768px) {
     flex-direction: column;
@@ -64,7 +69,9 @@ export default function Hours({ days, resetState, toggleOpen, handleChange }) {
   return (
     <Main>
       <Header>
-        <h2>Hours of Operation</h2>
+        <Typography variant='h4' gutterBottom>
+          Hours of Operation
+        </Typography>
         {!edit ? (
           <Button color='primary' onClick={() => clickEdit()}>
             Edit
@@ -82,54 +89,62 @@ export default function Hours({ days, resetState, toggleOpen, handleChange }) {
           </div>
         )}
       </Header>
-      <p>
+      <Typography variant='body1' gutterBottom>
         Manage standard order of operation when providers are available to
         provide care. Patients will be informed if they submit an exam outside
         if these hours.
-      </p>
-
+      </Typography>
       {edit
         ? Object.keys(days).map((key) => {
             return (
-              <Row key={key}>
-                <span>
-                  <p>{days[key].name}</p>
-                  <Switch
-                    checked={days[key].open}
-                    onChange={(e) => toggleOpen(e, key)}
-                    name='open'
-                    inputProps={{ "aria-label": "secondary checkbox" }}
-                  />
-                  <p>{days[key].open === true ? "OPEN" : "CLOSED"}</p>
-                </span>
-                <span>
-                  <input
-                    type='time'
-                    name='start'
-                    onChange={(e) => handleChange(e, key)}
-                    value={days[key].start}
-                  ></input>
-                  -
-                  <input
-                    type='time'
-                    name='finish'
-                    onChange={(e) => handleChange(e, key)}
-                    value={days[key].finish}
-                  ></input>
-                </span>
-              </Row>
+              <Fade in={edit} key={key}>
+                <Row>
+                  <span>
+                    <Typography variant='h6'>{days[key].name}</Typography>
+                    <Switch
+                      checked={days[key].open}
+                      onChange={(e) => toggleOpen(e, key)}
+                      name='open'
+                      color='primary'
+                    />
+                    <Typography variant='h6'>
+                      {days[key].open === true ? "OPEN" : "CLOSED"}
+                    </Typography>
+                  </span>
+                  <span>
+                    <input
+                      type='time'
+                      name='start'
+                      onChange={(e) => handleChange(e, key)}
+                      value={days[key].start}
+                    ></input>
+                    -
+                    <input
+                      type='time'
+                      name='finish'
+                      onChange={(e) => handleChange(e, key)}
+                      value={days[key].finish}
+                    ></input>
+                  </span>
+                </Row>
+              </Fade>
             );
           })
         : Object.keys(days).map((key) => {
+            const start = moment(days[key].start, "H:mm");
+            const finish = moment(days[key].finish, "H:mm");
+            console.log(start);
             return (
               <Row key={key}>
                 <span>
-                  <p>{days[key].name}</p>
-                  <p>{days[key].open === true ? "OPEN" : "CLOSED"}</p>
+                  <Typography variant='h6'>{days[key].name}</Typography>
+                  <Typography variant='h6'>
+                    {days[key].open === true ? "OPEN" : "CLOSED"}
+                  </Typography>
                 </span>
                 <span>
-                  <p>{days[key].start}</p>
-                  <p>{days[key].finish}</p>
+                  <p>{start.format("H:mm a")}</p>
+                  <p>{finish.format("H:mm a")}</p>
                 </span>
               </Row>
             );

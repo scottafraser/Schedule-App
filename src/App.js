@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Branding from "./components/Branding";
 import Hours from "./components/Hours";
+import Paper from "@material-ui/core/Paper";
 
 export default class App extends Component {
   constructor(props) {
@@ -78,19 +79,22 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
-        <Hours
-          days={this.state.days}
-          handleChange={this.handleChange}
-          toggleOpen={this.toggleOpen}
-          resetState={this.resetState}
-        />
-        <hr />
-        <Branding
-          display={this.state.display}
-          handleText={this.handleText}
-          resetState={this.resetState}
-        />
+      <div className='container'>
+        <Paper>
+          <Hours
+            days={this.state.days}
+            handleChange={this.handleChange}
+            toggleOpen={this.toggleOpen}
+            resetState={this.resetState}
+          />
+        </Paper>
+        <Paper>
+          <Branding
+            display={this.state.display}
+            handleText={this.handleText}
+            resetState={this.resetState}
+          />
+        </Paper>
       </div>
     );
   }
